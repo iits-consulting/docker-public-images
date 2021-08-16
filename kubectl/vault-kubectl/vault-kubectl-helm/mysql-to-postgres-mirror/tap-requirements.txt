@@ -1,0 +1,2 @@
+tap-mysql==1.17.4
+singer-python==5.5.0

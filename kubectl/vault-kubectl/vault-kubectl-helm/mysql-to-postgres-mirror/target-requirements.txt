@@ -1,0 +1,2 @@
+singer-target-postgres==0.2.4
+singer-python==5.9.0
