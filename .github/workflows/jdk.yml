@@ -20,6 +20,7 @@ jobs:
           dockerfile: ${{env.DOCKERFILE_PATH}}
       - name: Build an image from Dockerfile
         run: |
+          cd ${{env.IMAGE_NAME}}
           docker build -t ${{env.IMAGE_NAME}}:${{env.IMAGE_VERSION}} .
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
