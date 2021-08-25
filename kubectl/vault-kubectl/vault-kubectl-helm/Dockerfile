@@ -24,5 +24,13 @@ RUN helm repo add elastic https://helm.elastic.co && \
     helm repo add kubernetes https://kubernetes.github.io/dashboard/ && \
     helm repo update > /dev/null
 
-FROM AddHelmRepos
+FROM AddHelmRepos AS HelmRepos
 RUN mkdir /root/.kube
+
+FROM HelmRepos
+ARG IMAGE_USER=vault-kubectl-helm-user
+RUN addgroup -S $IMAGE_USER && \
+    adduser -G $IMAGE_USER --system --shell=/bin/false --disabled-password $IMAGE_USER && \
+    mkdir -p /var/log/$IMAGE_USER && \
+    chown -R $IMAGE_USER:$IMAGE_USER /var/log/$IMAGE_USER
+USER $IMAGE_USER

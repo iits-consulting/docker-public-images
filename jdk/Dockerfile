@@ -1,4 +1,4 @@
-FROM adoptopenjdk/openjdk11:jdk-11.0.12_7-alpine-slim
+FROM adoptopenjdk/openjdk11:jdk-11.0.12_7-alpine-slim AS Jdk11
 RUN apk update && apk add --no-cache \
     tzdata=2021a-r0 \
     fontconfig=2.13.1-r4 \
@@ -9,3 +9,11 @@ RUN apk update && apk add --no-cache \
     rm -rf /var/cache/apk/*
 ENV TZ Europe/Berlin
 VOLUME /tmp
+
+FROM Jdk11
+ARG IMAGE_USER=jdk-user
+RUN addgroup -S $IMAGE_USER && \
+    adduser -G $IMAGE_USER --system --shell=/bin/false --disabled-password $IMAGE_USER && \
+    mkdir -p /var/log/$IMAGE_USER && \
+    chown -R $IMAGE_USER:$IMAGE_USER /var/log/$IMAGE_USER
+USER $IMAGE_USER

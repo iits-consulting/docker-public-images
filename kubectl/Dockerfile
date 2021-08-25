@@ -9,8 +9,16 @@ RUN apk add --no-cache curl=7.78.0-r0 \
     rm -rf /var/cache/apk/*
 
 #kubectl
-FROM Packages
+FROM Packages AS Kubectl
 ARG KUBECTL_VERSION=1.17.17
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/v"$KUBECTL_VERSION"/bin/linux/amd64/kubectl && \
     chmod +x ./kubectl && \
     mv ./kubectl /usr/local/bin/kubectl
+
+FROM Kubectl
+ARG IMAGE_USER=kubectl-user
+RUN addgroup -S $IMAGE_USER && \
+    adduser -G $IMAGE_USER --system --shell=/bin/false --disabled-password $IMAGE_USER && \
+    mkdir -p /var/log/$IMAGE_USER && \
+    chown -R $IMAGE_USER:$IMAGE_USER /var/log/$IMAGE_USER
+USER $IMAGE_USER
