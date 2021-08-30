@@ -12,8 +12,16 @@ RUN curl -LO https://github.com/terraform-linters/tflint/releases/download/"$TFL
     mv ./tflint /usr/local/bin/tflint
 
 # tfsec
-FROM tflint
+FROM tflint AS Tfsec
 ARG TFSEC_VERSION=v0.39.42
 RUN curl -LO https://github.com/tfsec/tfsec/releases/download/"$TFSEC_VERSION"/tfsec-linux-amd64 && \
     chmod +x ./tfsec-linux-amd64 && \
     mv ./tfsec-linux-amd64 /usr/local/bin/tfsec
+
+FROM Tfsec
+ARG IMAGE_USER=vault-kubectl-terraform-lint
+RUN addgroup -S $IMAGE_USER && \
+    adduser -G $IMAGE_USER --system --shell=/bin/false --disabled-password $IMAGE_USER && \
+    mkdir -p /var/log/$IMAGE_USER && \
+    chown -R $IMAGE_USER:$IMAGE_USER /var/log/$IMAGE_USER
+USER $IMAGE_USER

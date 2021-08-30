@@ -18,9 +18,17 @@ RUN python3 -m venv ~/.virtualenvs/tap && \
     pip install --no-cache-dir -r tap-requirements.txt
 
 # python target env
-FROM PythonTapEnv
+FROM PythonTapEnv AS Python3
 COPY target-requirements.txt ./
 RUN python3 -m venv ~/.virtualenvs/target && \
     . ~/.virtualenvs/target/bin/activate && \
     pip install --no-cache-dir -r target-requirements.txt && \
     apk --purge del .build-deps
+
+FROM Python3
+ARG IMAGE_USER=mysql-user
+RUN addgroup -S $IMAGE_USER && \
+    adduser -G $IMAGE_USER --system --shell=/bin/false --disabled-password $IMAGE_USER && \
+    mkdir -p /var/log/$IMAGE_USER && \
+    chown -R $IMAGE_USER:$IMAGE_USER /var/log/$IMAGE_USER
+USER $IMAGE_USER
