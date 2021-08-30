@@ -11,15 +11,13 @@ RUN curl -L https://get.helm.sh/helm-v"$HELM_VERSION"-linux-amd64.tar.gz -o helm
 FROM DownloadHelm AS AddUser
 ARG IMAGE_USER=vault-kubectl-helm-user
 RUN addgroup -S $IMAGE_USER && \
-    adduser -G $IMAGE_USER --system --shell=/bin/false --disabled-password $IMAGE_USER && \
-    mkdir -p /var/log/$IMAGE_USER && \
-    chown -R $IMAGE_USER:$IMAGE_USER /var/log/$IMAGE_USER && \
-    mkdir /home/$IMAGE_USER/.kube
+    adduser -G $IMAGE_USER --system --shell=/bin/false --disabled-password $IMAGE_USER
 USER $IMAGE_USER
 
 FROM AddUser AS InstallHelmPlugin
 ARG HELM_DIFF_PLUGIN_VERSION=3.1.2
-RUN helm plugin install https://github.com/databus23/helm-diff --version v"$HELM_DIFF_PLUGIN_VERSION"
+RUN helm plugin install https://github.com/databus23/helm-diff --version v"$HELM_DIFF_PLUGIN_VERSION" && \
+    mkdir ~/.kube
 
 FROM InstallHelmPlugin AS AddHelmRepos
 RUN helm repo add elastic https://helm.elastic.co && \
