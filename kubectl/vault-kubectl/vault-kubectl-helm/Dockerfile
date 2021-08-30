@@ -8,7 +8,16 @@ RUN curl -L https://get.helm.sh/helm-v"$HELM_VERSION"-linux-amd64.tar.gz -o helm
     tar -xzf helm-v"$HELM_VERSION"-linux-amd64.tar.gz && \
     mv linux-amd64/helm /usr/local/bin/helm && rm -rf linux-amd64 && rm -rf helm-v"$HELM_VERSION"-linux-amd64.tar.gz
 
-FROM DownloadHelm AS InstallHelmPlugin
+FROM DownloadHelm AS AddUser
+ARG IMAGE_USER=vault-kubectl-helm-user
+RUN addgroup -S $IMAGE_USER && \
+    adduser -G $IMAGE_USER --system --shell=/bin/false --disabled-password $IMAGE_USER && \
+    mkdir -p /var/log/$IMAGE_USER && \
+    chown -R $IMAGE_USER:$IMAGE_USER /var/log/$IMAGE_USER && \
+    mkdir /home/$IMAGE_USER/.kube
+USER $IMAGE_USER
+
+FROM AddUser AS InstallHelmPlugin
 ARG HELM_DIFF_PLUGIN_VERSION=3.1.2
 RUN helm plugin install https://github.com/databus23/helm-diff --version v"$HELM_DIFF_PLUGIN_VERSION"
 
@@ -23,14 +32,3 @@ RUN helm repo add elastic https://helm.elastic.co && \
     helm repo add bitnami https://charts.bitnami.com/bitnami && \
     helm repo add kubernetes https://kubernetes.github.io/dashboard/ && \
     helm repo update > /dev/null
-
-FROM AddHelmRepos AS HelmRepos
-RUN mkdir /root/.kube
-
-FROM HelmRepos
-ARG IMAGE_USER=vault-kubectl-helm-user
-RUN addgroup -S $IMAGE_USER && \
-    adduser -G $IMAGE_USER --system --shell=/bin/false --disabled-password $IMAGE_USER && \
-    mkdir -p /var/log/$IMAGE_USER && \
-    chown -R $IMAGE_USER:$IMAGE_USER /var/log/$IMAGE_USER
-USER $IMAGE_USER
