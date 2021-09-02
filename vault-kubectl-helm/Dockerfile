@@ -1,25 +1,47 @@
 #Creates a image with docker,kubectl and terraform
-FROM iits/vault-kubectl:1.3.3 AS VaultK8s
-
-FROM VaultK8s AS DownloadHelm
-ARG HELM_VERSION=3.2.1
+FROM docker:20.10.8-git AS Base
+RUN apk add --no-cache make=4.3-r0 && \
+    rm -rf /var/cache/apk/*
+ENV KUBECTL_VERSION=1.17.17
+ENV VAULT_VERSION=1.3.3
+ENV HELM_VERSION=3.2.1
 ENV HELM_EXPERIMENTAL_OCI=1
+ENV HELM_DIFF_PLUGIN_VERSION=3.1.2
+
+FROM Base AS Packages
+RUN apk add --no-cache curl=7.78.0-r0 \
+    bash=5.1.4-r0 \
+    jq=1.6-r1 && \
+    rm -rf /var/cache/apk/*
+
+FROM Packages AS Kubectl
+RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/v"$KUBECTL_VERSION"/bin/linux/amd64/kubectl && \
+    chmod +x ./kubectl && \
+    mv ./kubectl /usr/local/bin/kubectl
+
+FROM Kubectl AS Vault
+RUN curl -LO https://releases.hashicorp.com/vault/"$VAULT_VERSION"/vault_"$VAULT_VERSION"_linux_amd64.zip && \
+    unzip vault* && \
+    chmod +x ./vault && \
+    mv ./vault /usr/local/bin/vault && \
+    rm vault*
+
+FROM Vault AS Helm
 RUN curl -L https://get.helm.sh/helm-v"$HELM_VERSION"-linux-amd64.tar.gz -o helm-v"$HELM_VERSION"-linux-amd64.tar.gz && \
     tar -xzf helm-v"$HELM_VERSION"-linux-amd64.tar.gz && \
     mv linux-amd64/helm /usr/local/bin/helm && rm -rf linux-amd64 && rm -rf helm-v"$HELM_VERSION"-linux-amd64.tar.gz
 
-FROM DownloadHelm AS AddUser
-ARG IMAGE_USER=vault-kubectl-helm-user
-RUN addgroup -S $IMAGE_USER && \
-    adduser -G $IMAGE_USER --system --shell=/bin/false --disabled-password $IMAGE_USER
+FROM Helm AS LimitedUser
+ARG IMAGE_USER=vault-kubectl-helm
+RUN addgroup -S $IMAGE_USER -g 1000 && \
+    adduser -G $IMAGE_USER -u 1000 --system --shell=/bin/false --disabled-password $IMAGE_USER
 USER $IMAGE_USER
 
-FROM AddUser AS InstallHelmPlugin
-ARG HELM_DIFF_PLUGIN_VERSION=3.1.2
+FROM LimitedUser AS HelmPlugin
 RUN helm plugin install https://github.com/databus23/helm-diff --version v"$HELM_DIFF_PLUGIN_VERSION" && \
     mkdir ~/.kube
 
-FROM InstallHelmPlugin AS AddHelmRepos
+FROM HelmPlugin
 RUN helm repo add elastic https://helm.elastic.co && \
     helm repo add incubator https://charts.helm.sh/incubator && \
     helm repo add confluentinc https://confluentinc.github.io/cp-helm-charts && \

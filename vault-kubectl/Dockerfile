@@ -1,6 +1,8 @@
 FROM docker:20.10.8-git AS Base
 RUN apk add --no-cache make=4.3-r0 && \
     rm -rf /var/cache/apk/*
+ENV KUBECTL_VERSION=1.17.17
+ENV VAULT_VERSION=1.3.3
 
 FROM Base AS Packages
 RUN apk add --no-cache curl=7.78.0-r0 \
@@ -8,15 +10,20 @@ RUN apk add --no-cache curl=7.78.0-r0 \
     jq=1.6-r1 && \
     rm -rf /var/cache/apk/*
 
-#kubectl
 FROM Packages AS Kubectl
-ARG KUBECTL_VERSION=1.17.17
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/v"$KUBECTL_VERSION"/bin/linux/amd64/kubectl && \
     chmod +x ./kubectl && \
     mv ./kubectl /usr/local/bin/kubectl
 
-FROM Kubectl
-ARG IMAGE_USER=kubectl-user
+FROM Kubectl AS Vault
+RUN curl -LO https://releases.hashicorp.com/vault/"$VAULT_VERSION"/vault_"$VAULT_VERSION"_linux_amd64.zip && \
+    unzip vault* && \
+    chmod +x ./vault && \
+    mv ./vault /usr/local/bin/vault && \
+    rm vault*
+
+FROM Vault
+ARG IMAGE_USER=vault-kubectl
 RUN addgroup -S $IMAGE_USER -g 1000 && \
     adduser -G $IMAGE_USER -u 1000 --system --shell=/bin/false --disabled-password $IMAGE_USER
 USER $IMAGE_USER

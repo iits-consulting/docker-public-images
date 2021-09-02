@@ -10,8 +10,11 @@ RUN apk update && apk add --no-cache \
 ENV TZ Europe/Berlin
 VOLUME /tmp
 
-FROM Base
-ARG IMAGE_USER=jdk-user
+FROM Base AS Docker
+RUN apk add --no-cache docker='20.10.7-r1' && rm -f /var/cache/apk/*
+
+FROM Docker
+ARG IMAGE_USER=jdk-docker-user
 RUN addgroup -S $IMAGE_USER -g 1000 && \
     adduser -G $IMAGE_USER -u 1000 --system --shell=/bin/false --disabled-password $IMAGE_USER
 USER $IMAGE_USER
