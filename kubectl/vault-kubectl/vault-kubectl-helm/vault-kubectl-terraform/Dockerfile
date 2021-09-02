@@ -11,7 +11,7 @@ RUN curl -LO https://releases.hashicorp.com/terraform/"$TERRAFORM_VERSION"/terra
 
 # tfmigrate
 FROM terraform AS Tfmigrate
-ARG TFMIGRATE_VERSION=0.2.5
+ARG TFMIGRATE_VERSION=0.2.7
 RUN curl -LO https://github.com/minamijoyo/tfmigrate/releases/download/v"$TFMIGRATE_VERSION"/tfmigrate_"$TFMIGRATE_VERSION"_linux_amd64.tar.gz && \
     tar xvzf tfmigrate_"$TFMIGRATE_VERSION"_linux_amd64.tar.gz && \
     mv tfmigrate /usr/local/bin/
