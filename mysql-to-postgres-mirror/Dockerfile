@@ -34,8 +34,8 @@ RUN curl -L https://get.helm.sh/helm-v"$HELM_VERSION"-linux-amd64.tar.gz -o helm
     mv linux-amd64/helm /usr/local/bin/helm && rm -rf linux-amd64 && rm -rf helm-v"$HELM_VERSION"-linux-amd64.tar.gz
 
 FROM Helm AS LimitedUser
-RUN addgroup -S $IMAGE_USER -g 1000 && \
-    adduser -G $IMAGE_USER -u 1000 --system --shell=/bin/false --disabled-password $IMAGE_USER
+RUN addgroup -S "$IMAGE_USER" -g 1000 && \
+    adduser -G "$IMAGE_USER" -u 1000 --system --shell=/bin/false --disabled-password "$IMAGE_USER"
 USER $IMAGE_USER
 
 FROM LimitedUser AS HelmPlugin
