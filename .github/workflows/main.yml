@@ -71,7 +71,7 @@ jobs:
             image-version: 5.5.0-kubectl-port-forwarding-limited-user
             dockerfile-path: kubectl/vault-kubectl/vault-kubectl-helm/mysql-to-postgres-mirror
           - image-name: node-chromium
-            image-version: 14.5.0-limited-user
+            image-version: 14.17.6-limited-user
             dockerfile-path: node-chromium
     needs: hadolint
     steps:
