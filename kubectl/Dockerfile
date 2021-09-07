@@ -4,7 +4,7 @@ RUN apk add --no-cache make=4.3-r0 && \
 
 FROM docker-git AS Packages
 RUN apk add --no-cache curl=7.78.0-r0 \
-    bash=5.1.0-r0 \
+    bash=5.1.4-r0 \
     jq=1.6-r1 && \
     rm -rf /var/cache/apk/*
 
