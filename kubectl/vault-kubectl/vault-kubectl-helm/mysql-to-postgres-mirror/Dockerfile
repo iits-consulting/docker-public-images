@@ -4,7 +4,7 @@ RUN apk update --no-cache && \
   apk add --no-cache --virtual \
   .build-deps gcc=10.2.1_pre1-r3 \
   musl-dev=1.2.2-r1 \
-  postgresql-dev=13.4-r0 && \
+  postgresql-dev=13.5-r0 && \
   rm -rf /var/cache/apk/*
 ENV PYTHON_VERSION=3.8.10
 ENV PYTHON_PIP_VERSION=20.3.4
