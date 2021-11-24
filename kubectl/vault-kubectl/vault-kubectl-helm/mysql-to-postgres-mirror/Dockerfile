@@ -1,6 +1,6 @@
 FROM iits/vault-kubectl-helm:3.2.1-openapifix-stablerepofix AS Updated
 RUN apk update --no-cache && \
-  apk add --no-cache postgresql-libs=13.4-r0 vim=8.2.2320-r0 python3=3.8.10-r0 py3-pip=20.3.4-r0 python3-dev=3.8.10-r0 && \
+  apk add --no-cache postgresql-libs=13.5-r0 vim=8.2.3437-r0 python3=3.8.10-r0 py3-pip=20.3.4-r0 python3-dev=3.8.10-r0 && \
   apk add --no-cache --virtual \
   .build-deps gcc=10.2.1_pre1-r3 \
   musl-dev=1.2.2-r1 \
