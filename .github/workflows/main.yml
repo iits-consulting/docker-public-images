@@ -9,8 +9,7 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        image-name: [ jdk, jdk-docker, kubectl, vault-kubectl, vault-kubectl-helm, vault-kubectl-terraform,
-                      vault-kubectl-terraform-lint, mysql-to-postgres-mirror, node-chromium ]
+        image-name: [ jdk, jdk-docker, kubectl, vault-kubectl, vault-kubectl-helm, vault-kubectl-terraform, mysql-to-postgres-mirror, node-chromium ]
         include:
           - image-name: jdk
             dockerfile-path: jdk/Dockerfile
@@ -24,8 +23,6 @@ jobs:
             dockerfile-path: kubectl/vault-kubectl/vault-kubectl-helm/Dockerfile
           - image-name: vault-kubectl-terraform
             dockerfile-path: kubectl/vault-kubectl/vault-kubectl-helm/vault-kubectl-terraform/Dockerfile
-          - image-name: vault-kubectl-terraform-lint
-            dockerfile-path: kubectl/vault-kubectl/vault-kubectl-helm/vault-kubectl-terraform/vault-kubectl-terraform-lint/Dockerfile
           - image-name: mysql-to-postgres-mirror
             dockerfile-path: kubectl/vault-kubectl/vault-kubectl-helm/mysql-to-postgres-mirror/Dockerfile
           - image-name: node-chromium
@@ -43,8 +40,7 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        image-name: [ jdk, jdk-docker, kubectl, vault-kubectl, vault-kubectl-helm, vault-kubectl-terraform,
-                      vault-kubectl-terraform-lint, mysql-to-postgres-mirror, node-chromium ]
+        image-name: [ jdk, jdk-docker, kubectl, vault-kubectl, vault-kubectl-helm, vault-kubectl-terraform, mysql-to-postgres-mirror, node-chromium ]
         include:
           - image-name: jdk
             image-version: jdk-11-alpine-limited-user
@@ -62,11 +58,8 @@ jobs:
             image-version: 3.2.1-openapifix-stablerepofix-limited-user
             dockerfile-path: kubectl/vault-kubectl/vault-kubectl-helm
           - image-name: vault-kubectl-terraform
-            image-version: 0.14.8-limited-user
+            image-version: 1.0.11-limited-user
             dockerfile-path: kubectl/vault-kubectl/vault-kubectl-helm/vault-kubectl-terraform
-          - image-name: vault-kubectl-terraform-lint
-            image-version: 0.28.1-limited-user
-            dockerfile-path: kubectl/vault-kubectl/vault-kubectl-helm/vault-kubectl-terraform/vault-kubectl-terraform-lint
           - image-name: mysql-to-postgres-mirror
             image-version: 5.5.0-kubectl-port-forwarding-limited-user
             dockerfile-path: kubectl/vault-kubectl/vault-kubectl-helm/mysql-to-postgres-mirror

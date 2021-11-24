@@ -3,7 +3,7 @@ FROM iits/vault-kubectl:1.3.3 AS vault-kubectl
 
 #terraform
 FROM vault-kubectl AS terraform
-ARG TERRAFORM_VERSION=0.14.8
+ARG TERRAFORM_VERSION=1.0.11
 RUN curl -LO https://releases.hashicorp.com/terraform/"$TERRAFORM_VERSION"/terraform_"$TERRAFORM_VERSION"_linux_amd64.zip && \
     unzip terra* && \
     chmod +x ./terraform && \
