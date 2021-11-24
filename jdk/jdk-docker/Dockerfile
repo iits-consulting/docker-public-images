@@ -1,5 +1,5 @@
 FROM iits/jdk:jdk-11-alpine AS Jdk11
-RUN apk add --no-cache docker='20.10.11-r0' && rm -f /var/cache/apk/*
+RUN apk add --no-cache docker='20.10.7-r1' && rm -f /var/cache/apk/*
 
 FROM Jdk11
 ARG IMAGE_USER=jdk-docker-user
