@@ -14,7 +14,6 @@ FROM Jdk11
 ARG IMAGE_USER=jdk-user
 RUN addgroup -S $IMAGE_USER && \
     adduser -G $IMAGE_USER --system --shell=/bin/false --disabled-password $IMAGE_USER && \
-    mkdir -p /var/log/$IMAGE_USER && \
-    chown -R $IMAGE_USER:$IMAGE_USER /var/log/$IMAGE_USER && \
-    chown -R $IMAGE_USER:$IMAGE_USER /builds
+    mkdir -p /var/log/$IMAGE_USER && chown -R $IMAGE_USER:$IMAGE_USER /var/log/$IMAGE_USER && \
+    mkdir -p /builds && chown -R $IMAGE_USER:$IMAGE_USER /builds
 USER $IMAGE_USER
