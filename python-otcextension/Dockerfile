@@ -6,6 +6,4 @@ FROM Base AS OTC
 RUN pip3 install otcextensions==0.26.0 python-openstackclient==5.7.0
 
 FROM OTC
-RUN mkdir /etc/openstack
-ENV OS_CLOUD=otc
 USER nobody
