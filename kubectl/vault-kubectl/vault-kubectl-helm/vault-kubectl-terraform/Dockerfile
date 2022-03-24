@@ -1,6 +1,7 @@
 #Creates a image with docker,kubectl and terraform
 ARG IMAGE_USER=vault-kubectl-terraform
 FROM iits/vault-kubectl:1.3.3 AS vault-kubectl
+ARG IMAGE_USER
 USER root
 RUN addgroup -S $IMAGE_USER && \
     adduser -G $IMAGE_USER --system --shell=/bin/false --disabled-password $IMAGE_USER
