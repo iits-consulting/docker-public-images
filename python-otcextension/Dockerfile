@@ -6,5 +6,5 @@ FROM Base AS OTC
 RUN pip3 install otcextensions==0.26.0 python-openstackclient==5.7.0
 
 FROM OTC
-RUN apt-get update && apt-get install -y jq=1.6-2.1
+RUN apt-get update && apt-get --no-install-recommends install -y jq=1.6-2.1 && apt-get clean && rm -rf /var/lib/apt/lists/*
 USER nobody
