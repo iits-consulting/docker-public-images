@@ -1,6 +1,6 @@
 FROM adoptopenjdk/openjdk11:jdk-11.0.12_7-alpine-slim AS Jdk11
 RUN apk update && apk add --no-cache \
-    tzdata=2021e-r0 \
+    tzdata=2022a-r0 \
     fontconfig=2.13.1-r4 \
     freetype=2.10.4-r1 \
     ttf-dejavu=2.37-r1 \
