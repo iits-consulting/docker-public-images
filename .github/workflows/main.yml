@@ -69,7 +69,7 @@ jobs:
             image-version: 14.17.6
             dockerfile-path: node-chromium
           - image-name: python-otcextension
-            image-version: 0.26.0
+            image-version: 0.26.1
             dockerfile-path: python-otcextension
     needs: hadolint
     steps:
