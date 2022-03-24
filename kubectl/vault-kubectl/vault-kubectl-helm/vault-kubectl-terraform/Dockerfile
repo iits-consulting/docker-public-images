@@ -16,7 +16,7 @@ USER root
 RUN curl -LO https://releases.hashicorp.com/terraform/"$TERRAFORM_VERSION"/terraform_"$TERRAFORM_VERSION"_linux_amd64.zip && \
     unzip terra* && \
     chmod +x ./terraform && \
-    mv ./terraform /usr/local/bin/terraform \
+    mv ./terraform /usr/local/bin/terraform
 USER $IMAGE_USER
 
 # tfmigrate
