@@ -1,12 +1,12 @@
 ARG IMAGE_USER=mysql-user
-FROM iits/vault-kubectl-helm:3.2.1-openapifix-stablerepofix AS Updated
+FROM iits/vault-kubectl-helm:3.2.1-openapifix-stablerepofix AS Main
 ARG IMAGE_USER
 USER root
 RUN addgroup -S $IMAGE_USER && \
     adduser -G $IMAGE_USER --system --shell=/bin/false --disabled-password $IMAGE_USER
 USER $IMAGE_USER
 
-FROM Updated AS PythonTapEnv
+FROM Main AS Updated
 ARG IMAGE_USER
 USER root
 RUN apk update --no-cache && \
