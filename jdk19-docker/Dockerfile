@@ -13,5 +13,5 @@ USER guest
 
 FROM Base
 USER root
-RUN apk add --no-cache docker='20.10.11-r0' && rm -f /var/cache/apk/*
+RUN apk add --no-cache docker='20.10.14-r0' && rm -f /var/cache/apk/*
 USER guest
