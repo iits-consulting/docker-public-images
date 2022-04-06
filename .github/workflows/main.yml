@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        image-name: [ jdk, jdk-docker, kubectl, vault-kubectl, vault-kubectl-helm, vault-kubectl-terraform, mysql-to-postgres-mirror, node-chromium, python-otcextension ]
+        image-name: [ jdk, jdk19, jdk-docker, kubectl, vault-kubectl, vault-kubectl-helm, vault-kubectl-terraform, mysql-to-postgres-mirror, node-chromium, python-otcextension ]
         include:
           - image-name: jdk
             image-version: jdk-11-alpine
