@@ -1,4 +1,4 @@
-FROM openjdk:19-jdk-alpine3.15 AS Base
+FROM openjdk:19-jdk-alpine3.15
 RUN apk update && apk add --no-cache \
     tzdata=2022a-r0 \
     fontconfig=2.13.1-r4 \
@@ -9,9 +9,5 @@ RUN apk update && apk add --no-cache \
     rm -rf /var/cache/apk/*;
 ENV TZ Europe/Berlin
 VOLUME /tmp
-USER guest
-
-FROM Base
-USER root
-RUN chown -R guest:guest "/builds"
+WORKDIR /tmp
 USER guest
