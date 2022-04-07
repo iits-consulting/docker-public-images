@@ -1,4 +1,12 @@
-FROM openjdk:19-jdk-alpine3.15
+ARG IMAGE_USER=jdk-user
+FROM openjdk:19-jdk-alpine3.15 AS base
+ARG IMAGE_USER
+RUN addgroup -S $IMAGE_USER && \
+    adduser -G $IMAGE_USER --system --shell=/bin/false --disabled-password $IMAGE_USER
+USER $IMAGE_USER
+
+FROM base
+USER root
 RUN apk update && apk add --no-cache \
     tzdata=2022a-r0 \
     fontconfig=2.13.1-r4 \
@@ -6,8 +14,7 @@ RUN apk update && apk add --no-cache \
     ttf-dejavu=2.37-r1 \
     gcc=10.3.1_git20211027-r0 \
     openssl=1.1.1n-r0 && \
-    rm -rf /var/cache/apk/*;
+    rm -rf /var/cache/apk/*
 ENV TZ Europe/Berlin
 VOLUME /tmp
-WORKDIR /tmp
-USER guest
+USER $IMAGE_USER

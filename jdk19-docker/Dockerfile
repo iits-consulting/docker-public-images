@@ -1,4 +1,13 @@
-FROM openjdk:19-jdk-alpine3.15 AS Base
+ARG IMAGE_USER=jdk-user
+FROM openjdk:19-jdk-alpine3.15 AS base
+ARG IMAGE_USER
+RUN addgroup -S $IMAGE_USER && \
+    adduser -G $IMAGE_USER --system --shell=/bin/false --disabled-password $IMAGE_USER
+USER $IMAGE_USER
+
+FROM base AS packages
+ARG IMAGE_USER
+USER root
 RUN apk update && apk add --no-cache \
     tzdata=2022a-r0 \
     fontconfig=2.13.1-r4 \
@@ -9,9 +18,10 @@ RUN apk update && apk add --no-cache \
     rm -rf /var/cache/apk/*;
 ENV TZ Europe/Berlin
 VOLUME /tmp
-USER guest
+USER $IMAGE_USER
 
-FROM Base
+FROM packages
+ARG IMAGE_USER
 USER root
 RUN apk add --no-cache docker='20.10.14-r0' && rm -f /var/cache/apk/*
-USER guest
+USER $IMAGE_USER
