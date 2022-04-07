@@ -2,7 +2,8 @@ ARG IMAGE_USER=jdk-user
 FROM openjdk:19-jdk-alpine3.15 AS base
 ARG IMAGE_USER
 RUN addgroup -S $IMAGE_USER && \
-    adduser -G $IMAGE_USER --system --shell=/bin/false --disabled-password $IMAGE_USER
+    adduser -G $IMAGE_USER --system --shell=/bin/false --disabled-password $IMAGE_USER && \
+    mkdir -p /builds && chown -R $IMAGE_USER:$IMAGE_USER /builds
 USER $IMAGE_USER
 
 FROM base
