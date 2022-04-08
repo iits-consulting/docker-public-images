@@ -12,13 +12,13 @@ jobs:
         image-name: [ jdk, jdk19, jdk19-docker, jdk-docker, kubectl, vault-kubectl, vault-kubectl-helm, vault-kubectl-terraform, mysql-to-postgres-mirror, node-chromium, python-otcextension ]
         include:
           - image-name: jdk
-            dockerfile-path: jdk/Dockerfile
+            dockerfile-path: jdk11/Dockerfile
           - image-name: jdk19
             dockerfile-path: jdk19/Dockerfile
           - image-name: jdk19-docker
             dockerfile-path: jdk19-docker/Dockerfile
           - image-name: jdk-docker
-            dockerfile-path: jdk/jdk-docker/Dockerfile
+            dockerfile-path: jdk11-docker/Dockerfile
           - image-name: kubectl
             dockerfile-path: kubectl/Dockerfile
           - image-name: vault-kubectl
@@ -50,7 +50,7 @@ jobs:
         include:
           - image-name: jdk
             image-version: jdk-11-alpine
-            dockerfile-path: jdk
+            dockerfile-path: jdk11
 
           - image-name: jdk19
             image-version: jdk-19-alpine
@@ -62,7 +62,8 @@ jobs:
 
           - image-name: jdk-docker
             image-version: jdk-11-docker
-            dockerfile-path: jdk/jdk-docker
+            dockerfile-path: jdk11-docker
+
           - image-name: kubectl
             image-version: 1.17.17
             dockerfile-path: kubectl
