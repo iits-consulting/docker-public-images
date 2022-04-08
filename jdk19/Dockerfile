@@ -7,6 +7,7 @@ RUN addgroup -S $IMAGE_USER && \
 USER $IMAGE_USER
 
 FROM base
+ARG IMAGE_USER
 USER root
 RUN apk update && apk add --no-cache \
     tzdata=2022a-r0 \

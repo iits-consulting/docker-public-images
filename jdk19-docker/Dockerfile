@@ -16,7 +16,7 @@ RUN apk update && apk add --no-cache \
     ttf-dejavu=2.37-r1 \
     gcc=10.3.1_git20211027-r0 \
     openssl=1.1.1n-r0 && \
-    rm -rf /var/cache/apk/*;
+    rm -rf /var/cache/apk/*
 ENV TZ Europe/Berlin
 VOLUME /tmp
 USER $IMAGE_USER
