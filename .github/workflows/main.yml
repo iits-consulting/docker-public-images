@@ -22,13 +22,13 @@ jobs:
           - image-name: kubectl
             dockerfile-path: kubectl/Dockerfile
           - image-name: vault-kubectl
-            dockerfile-path: kubectl/vault-kubectl/Dockerfile
+            dockerfile-path: vault-kubectl/Dockerfile
           - image-name: vault-kubectl-helm
-            dockerfile-path: kubectl/vault-kubectl/vault-kubectl-helm/Dockerfile
+            dockerfile-path: vault-kubectl-helm/Dockerfile
           - image-name: vault-kubectl-terraform
-            dockerfile-path: kubectl/vault-kubectl/vault-kubectl-helm/vault-kubectl-terraform/Dockerfile
+            dockerfile-path: vault-kubectl-terraform/Dockerfile
           - image-name: mysql-to-postgres-mirror
-            dockerfile-path: kubectl/vault-kubectl/vault-kubectl-helm/mysql-to-postgres-mirror/Dockerfile
+            dockerfile-path: mysql-to-postgres-mirror/Dockerfile
           - image-name: node-chromium
             dockerfile-path: node-chromium/Dockerfile
           - image-name: python-otcextension
@@ -72,13 +72,13 @@ jobs:
             dockerfile-path: kubectl/vault-kubectl
           - image-name: vault-kubectl-helm
             image-version: 3.2.1-openapifix-stablerepofix
-            dockerfile-path: kubectl/vault-kubectl/vault-kubectl-helm
+            dockerfile-path: vault-kubectl/vault-kubectl-helm
           - image-name: vault-kubectl-terraform
             image-version: 1.1.4
-            dockerfile-path: kubectl/vault-kubectl/vault-kubectl-helm/vault-kubectl-terraform
+            dockerfile-path: vault-kubectl-terraform
           - image-name: mysql-to-postgres-mirror
             image-version: 5.5.0-kubectl-port-forwarding
-            dockerfile-path: kubectl/vault-kubectl/vault-kubectl-helm/mysql-to-postgres-mirror
+            dockerfile-path: mysql-to-postgres-mirror
           - image-name: node-chromium
             image-version: 14.17.6
             dockerfile-path: node-chromium
