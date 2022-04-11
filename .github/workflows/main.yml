@@ -1,8 +1,11 @@
 name: lint-build-push-all-images
 
 on:
-  - pull_request
-  - push
+  push:
+    branches:
+      - main
+    paths:
+      - "*/Dockerfile"
 
 jobs:
   hadolint:
@@ -40,7 +43,7 @@ jobs:
         uses: hadolint/hadolint-action@v1.5.0
         with:
           dockerfile: ${{ matrix.dockerfile-path }}
-          failure-threshold	: ignore
+          failure-threshold: ignore
 
   build-scan-push:
     runs-on: ubuntu-20.04
