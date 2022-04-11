@@ -1,12 +1,12 @@
 ARG IMAGE_USER=jdk-user
-FROM openjdk:17-jdk-alpine3.13 AS base
+FROM openjdk:17-jdk-alpine3.14 AS base
 ARG IMAGE_USER
 RUN addgroup -S $IMAGE_USER && \
     adduser -G $IMAGE_USER --system --shell=/bin/false --disabled-password $IMAGE_USER && \
     mkdir -p /builds && chown -R $IMAGE_USER:$IMAGE_USER /builds
 USER $IMAGE_USER
 
-FROM base
+FROM base as packages
 ARG IMAGE_USER
 USER root
 RUN apk update && apk add --no-cache \

@@ -1,5 +1,5 @@
 ARG IMAGE_USER=jdk-user
-FROM openjdk:17-jdk-alpine3.13 AS base
+FROM openjdk:17-jdk-alpine3.14 AS base
 ARG IMAGE_USER
 RUN addgroup -S $IMAGE_USER && \
     adduser -G $IMAGE_USER --system --shell=/bin/false --disabled-password $IMAGE_USER && \
