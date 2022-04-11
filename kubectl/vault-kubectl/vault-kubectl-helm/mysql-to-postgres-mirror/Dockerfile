@@ -10,7 +10,7 @@ FROM Main AS Updated
 ARG IMAGE_USER
 USER root
 RUN apk update --no-cache && \
-  apk add --no-cache postgresql-libs=13.6-r0 vim=8.2.4619-r0 python3=3.9.5-r2 py3-pip=20.3.4-r1 python3-dev=3.9.5-r2 && \
+  apk add --no-cache postgresql-libs=13.6-r0 vim=8.2.4708-r0 python3=3.9.5-r2 py3-pip=20.3.4-r1 python3-dev=3.9.5-r2 && \
   apk add --no-cache --virtual \
   .build-deps gcc=10.3.1_git20210424-r2 \
   musl-dev=1.2.2-r3 \
