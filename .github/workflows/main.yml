@@ -10,14 +10,14 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        image-name: [ jdk, jdk17, jdk-17-temurin, jdk17-docker, jdk-docker, kubectl, vault-kubectl, vault-kubectl-helm, vault-kubectl-terraform, mysql-to-postgres-mirror, node-chromium, python-otcextension ]
+        image-name: [ jdk, jdk17, jdk17-temurin, jdk17-docker, jdk-docker, kubectl, vault-kubectl, vault-kubectl-helm, vault-kubectl-terraform, mysql-to-postgres-mirror, node-chromium, python-otcextension ]
         include:
           - image-name: jdk
             dockerfile-path: jdk11/Dockerfile
           - image-name: jdk17
             dockerfile-path: jdk17/Dockerfile
-          - image-name: jdk-17-temurin
-            dockerfile-path: jdk-17-temurin/Dockerfile
+          - image-name: jdk17-temurin
+            dockerfile-path: jdk17-temurin/Dockerfile
           - image-name: jdk17-docker
             dockerfile-path: jdk17-docker/Dockerfile
           - image-name: jdk-docker
@@ -49,7 +49,7 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        image-name: [ jdk, jdk17, jdk-17-temurin, jdk17-docker, jdk-docker, kubectl, vault-kubectl, vault-kubectl-helm, vault-kubectl-terraform, mysql-to-postgres-mirror, node-chromium, python-otcextension ]
+        image-name: [ jdk, jdk17, jdk17-temurin, jdk17-docker, jdk-docker, kubectl, vault-kubectl, vault-kubectl-helm, vault-kubectl-terraform, mysql-to-postgres-mirror, node-chromium, python-otcextension ]
         include:
           - image-name: jdk
             image-version: jdk-11-alpine
@@ -59,9 +59,9 @@ jobs:
             image-version: jdk-17-alpine
             dockerfile-path: jdk17
 
-          - image-name: jdk-17-temurin
-            image-version: jdk-17-temurin-alpine
-            dockerfile-path: jdk-17-temurin
+          - image-name: jdk17-temurin
+            image-version: jdk17-temurin-alpine
+            dockerfile-path: jdk17-temurin
 
           - image-name: jdk17-docker
             image-version: jdk-17-docker
