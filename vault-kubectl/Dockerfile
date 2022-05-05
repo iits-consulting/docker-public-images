@@ -13,7 +13,7 @@ USER $IMAGE_USER
 FROM base AS packages
 ARG IMAGE_USER
 USER root
-RUN apk add --no-cache curl=7.79.1-r0 \
+RUN apk add --no-cache curl=7.79.1-r1 \
     bash=5.1.16-r0 \
     jq=1.6-r1 && \
     rm -rf /var/cache/apk/*
