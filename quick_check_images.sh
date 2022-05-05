@@ -10,6 +10,7 @@ do
   # shellcheck disable=SC2164
   cd "$docker_image"
 
+  hadolint Dockerfile
   docker build -q -t test-build-image .
 
   # shellcheck disable=SC2103
