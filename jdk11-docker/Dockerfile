@@ -25,5 +25,5 @@ USER $IMAGE_USER
 FROM jdk11
 ARG IMAGE_USER
 USER root
-RUN apk add --no-cache docker='20.10.11-r0' && rm -f /var/cache/apk/*
+RUN apk add --no-cache docker='20.10.11-r1' && rm -f /var/cache/apk/*
 USER $IMAGE_USER
