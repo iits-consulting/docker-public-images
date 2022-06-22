@@ -87,7 +87,7 @@ jobs:
             image-version: 3.2.1-openapifix-stablerepofix
             dockerfile-path: vault-kubectl-helm
           - image-name: vault-kubectl-terraform
-            image-version: 1.1.7
+            image-version: 1.1.4
             dockerfile-path: vault-kubectl-terraform
           - image-name: mysql-to-postgres-mirror
             image-version: 5.5.0-kubectl-port-forwarding
