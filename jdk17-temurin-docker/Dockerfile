@@ -10,10 +10,10 @@ FROM base as packages
 ARG IMAGE_USER
 USER root
 RUN apk update && apk add --no-cache \
-    tzdata=2022a-r0 \
-    fontconfig=2.13.1-r4 \
-    ttf-dejavu=2.37-r1 \
-    openssl=1.1.1n-r0 && \
+    "tzdata=~2022a" \
+    "fontconfig=~2.14" \
+    "ttf-dejavu=~2.37" \
+    "openssl=~1.1" && \
     rm -rf /var/cache/apk/*
 ENV TZ Europe/Berlin
 VOLUME /tmp
@@ -22,5 +22,5 @@ USER $IMAGE_USER
 FROM packages
 ARG IMAGE_USER
 USER root
-RUN apk add --no-cache docker='20.10.14-r1' && rm -f /var/cache/apk/*
+RUN apk add --no-cache "docker=~20.10" && rm -f /var/cache/apk/*
 USER $IMAGE_USER

@@ -11,12 +11,12 @@ FROM base as jdk11
 ARG IMAGE_USER
 USER root
 RUN apk update && apk add --no-cache \
-    tzdata=2022a-r0 \
-    fontconfig=2.13.1-r4 \
-    freetype=2.10.4-r1 \
-    ttf-dejavu=2.37-r1 \
-    gcc=10.3.1_git20210424-r2 \
-    openssl=1.1.1n-r0 && \
+    "tzdata=~2022a" \
+    "fontconfig=~2.13" \
+    "freetype=~2.10" \
+    "ttf-dejavu=~2.37" \
+    "gcc=~10.3" \
+    "openssl=~1.1" && \
     rm -rf /var/cache/apk/*
 ENV TZ Europe/Berlin
 VOLUME /tmp

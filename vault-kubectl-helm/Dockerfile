@@ -8,16 +8,17 @@ FROM docker:20.10.8-git AS base
 ARG IMAGE_USER
 RUN addgroup -S $IMAGE_USER && \
     adduser -G $IMAGE_USER --system --shell=/bin/false --disabled-password $IMAGE_USER && \
-    apk add --no-cache make=4.3-r0 && \
+    apk add --no-cache "make=~4.3" && \
     rm -rf /var/cache/apk/*
 USER $IMAGE_USER
 
 FROM base AS packages
 ARG IMAGE_USER
 USER root
-RUN apk add --no-cache curl=7.79.1-r1 \
-    bash=5.1.16-r0 \
-    jq=1.6-r1 && \
+RUN apk add --no-cache \
+    "curl=~7.79" \
+    "bash=~5.1" \
+    "jq=~1.6" && \
     rm -rf /var/cache/apk/*
 USER $IMAGE_USER
 

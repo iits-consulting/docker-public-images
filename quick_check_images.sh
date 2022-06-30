@@ -1,24 +1,28 @@
 #!/usr/bin/env bash
 
 set -e
-set -x
+set -o pipefail
 
-find . -mindepth 1 -maxdepth 1 -type d -not -name "\.*" | sed -e '/^$/d' > docker_images_list.txt
+PLATFORM_ARG=""
+if [ "$(uname -m)" == "arm64" ]; then
+  PLATFORM_ARG="--platform linux/amd64"
+fi
 
-while read -r docker_image
+find . -mindepth 1 -maxdepth 1 -type d -not -name "\.*" | sed -e '/^$/d' | while read -r docker_image
 do
   # shellcheck disable=SC2164
   cd "$docker_image"
+  echo "Checking $docker_image"
 
   hadolint Dockerfile
-  docker build -q -t test-build-image .
+
+  # word splitting is on purpose here
+  # shellcheck disable=SC2086
+  docker build -q $PLATFORM_ARG -t test-build-image .
 
   # shellcheck disable=SC2103
   cd ..
-done < docker_images_list.txt
-
-rm docker_images_list.txt
-
+done
 
 
 

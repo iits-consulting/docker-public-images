@@ -11,16 +11,17 @@ FROM docker:20.10.8-git AS base
 ARG IMAGE_USER
 RUN addgroup -S $IMAGE_USER && \
     adduser -G $IMAGE_USER --system --shell=/bin/false --disabled-password $IMAGE_USER && \
-    apk add --no-cache make=4.3-r0 && \
+    apk add --no-cache "make=~4.3" && \
     rm -rf /var/cache/apk/*
 USER $IMAGE_USER
 
 FROM base AS packages
 ARG IMAGE_USER
 USER root
-RUN apk add --no-cache curl=7.79.1-r1 \
-    bash=5.1.16-r0 \
-    jq=1.6-r1 && \
+RUN apk add --no-cache \
+    "curl=~7.79" \
+    "bash=~5.1" \
+    "jq=~1.6" && \
     rm -rf /var/cache/apk/*
 USER $IMAGE_USER
 
@@ -84,11 +85,16 @@ ARG ENV_PYTHON_VERSION
 ARG ENV_PYTHON_PIP_VERSION
 USER root
 RUN apk update --no-cache && \
-  apk add --no-cache postgresql-libs=13.6-r0 vim=8.2.4836-r0 python3=3.9.5-r2 py3-pip=20.3.4-r1 python3-dev=3.9.5-r2 && \
-  apk add --no-cache --virtual \
-  .build-deps gcc=10.3.1_git20210424-r2 \
-  musl-dev=1.2.2-r3 \
-  postgresql-dev=13.6-r0 && \
+  apk add --no-cache \
+    "postgresql-libs=~13.7"  \
+    "vim=~8.2"  \
+    "python3=~3.9"  \
+    "py3-pip=~20.3"  \
+    "python3-dev=~3.9" && \
+  apk add --no-cache --virtual  \
+    .build-deps "gcc=~10.3" \
+    "musl-dev=~1.2.2" \
+    "postgresql-dev=~13.7" && \
   rm -rf /var/cache/apk/*
 ENV PYTHON_VERSION=$ENV_PYTHON_VERSION
 ENV PYTHON_PIP_VERSION=$ENV_PYTHON_PIP_VERSION
