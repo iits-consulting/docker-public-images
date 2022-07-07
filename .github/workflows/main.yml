@@ -3,9 +3,7 @@ name: lint-build-push-all-images
 on:
   push:
     branches:
-      - "main"
-    paths:
-      - "*/Dockerfile"
+      - main
 
 jobs:
   hadolint:
