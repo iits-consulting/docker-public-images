@@ -16,6 +16,7 @@ RUN apk update && apk add --no-cache \
     "freetype=~2.10" \
     "ttf-dejavu=~2.37" \
     "gcc=~10.3" \
+    "wget=~1.21.1-r1" \
     "openssl=~1.1" && \
     rm -rf /var/cache/apk/*
 ENV TZ Europe/Berlin
