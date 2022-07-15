@@ -11,6 +11,7 @@ FROM base
 ARG IMAGE_USER
 USER root
 RUN apk update && apk add --no-cache \
+    "curl=7.83.1-r2" \
     "git=2.36.2-r0" \
     "less=590-r0" \
     "openssh=9.0_p1-r1" \
