@@ -11,12 +11,12 @@ FROM base
 ARG IMAGE_USER
 USER root
 RUN apk update && apk add --no-cache \
-    "bash=5.1.16-r2" \
-    "curl=7.83.1-r2" \
-    "git=2.36.2-r0" \
-    "less=590-r0" \
-    "openssh=9.0_p1-r1" \
-    "jq=1.6-r1" && \
+    "bash=~5.1" \
+    "curl=~7.83" \
+    "git=~2.36" \
+    "less=~590" \
+    "openssh=~9.0" \
+    "jq=~1.6" && \
     rm -rf /var/cache/apk/*
 ENV TZ Europe/Berlin
 VOLUME /git
