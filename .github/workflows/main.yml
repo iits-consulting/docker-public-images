@@ -61,7 +61,7 @@ jobs:
         include:
           - image-name: cosign
             image-version: 1.0.0
-            docker-file-path: cosign
+            dockerfile-path: cosign
 
           - image-name: git-jq
             image-version: 1.2.0
