@@ -10,8 +10,10 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        image-name: [ git-jq, jdk, jdk17, jdk17-temurin, jdk17-docker, jdk-docker, kubectl, vault-kubectl, vault-kubectl-helm, vault-kubectl-terraform, vault-kubectl-terraform-updated-version, mysql-to-postgres-mirror, node-chromium, python-otcextension ]
+        image-name: [ cosign, git-jq, jdk, jdk17, jdk17-temurin, jdk17-docker, jdk-docker, kubectl, vault-kubectl, vault-kubectl-helm, vault-kubectl-terraform, vault-kubectl-terraform-updated-version, mysql-to-postgres-mirror, node-chromium, python-otcextension ]
         include:
+          - image-name: cosign
+            dockerfile-path: cosign/Dockerfile
           - image-name: git-jq
             dockerfile-path: git-jq/Dockerfile
           - image-name: jdk
@@ -55,8 +57,12 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        image-name: [ git-jq, jdk, jdk17, jdk17-temurin, jdk17-docker, jdk17-temurin-docker, jdk-docker, kubectl, vault-kubectl, vault-kubectl-helm, vault-kubectl-terraform, vault-kubectl-terraform-updated-version, mysql-to-postgres-mirror, node-chromium, python-otcextension ]
+        image-name: [ cosign, git-jq, jdk, jdk17, jdk17-temurin, jdk17-docker, jdk17-temurin-docker, jdk-docker, kubectl, vault-kubectl, vault-kubectl-helm, vault-kubectl-terraform, vault-kubectl-terraform-updated-version, mysql-to-postgres-mirror, node-chromium, python-otcextension ]
         include:
+          - image-name: cosign
+            image-version: 1.0.0
+            docker-file-path: cosign
+
           - image-name: git-jq
             image-version: 1.2.0
             dockerfile-path: git-jq
