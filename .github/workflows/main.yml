@@ -110,7 +110,7 @@ jobs:
             image-version: 5.5.0-kubectl-port-forwarding
             dockerfile-path: mysql-to-postgres-mirror
           - image-name: node-chromium
-            image-version: 14.17.6
+            image-version: 18.7.0
             dockerfile-path: node-chromium
           - image-name: python-otcextension
             image-version: 0.26.1
